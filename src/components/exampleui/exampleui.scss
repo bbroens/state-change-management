@@ -1,0 +1,36 @@
+.example-ui {
+  display: flex;
+  flex: 6;
+  flex-direction: column;
+  padding: 25px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .textSection,
+    .buttonSection {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+
+    .checkboxSection {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+      gap: 10px;
+    }
+
+    .buttonSection {
+      gap: 15px;
+      flex-direction: row;
+
+      button {
+        padding: 10px 20px;
+      }
+    }
+  }
+}
