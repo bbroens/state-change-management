@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+// Separate state store for example app state
 export const useAppStore = create((set) => ({
   // Initial app state
   username: "",
@@ -14,6 +15,7 @@ export const useAppStore = create((set) => ({
   setPrefTwo: (input) => set(() => ({ preference_two: input })),
 }));
 
+// Separate state store for app state event changes
 export const useLogStore = create((set) => ({
   // Initial state change logs
   logs: [],
@@ -28,6 +30,26 @@ export const useLogStore = create((set) => ({
           state_key: input.state_key,
           prev_val: input.prev_val,
           new_val: input.new_val,
+        },
+      ],
+    }));
+  },
+}));
+
+// Separate state store for app state snapshots
+export const useSnapshotsStore = create((set) => ({
+  // Initial state snapshots
+  snapshots: [],
+
+  // Method to add snapshots to state
+  addSnapshot: (input) => {
+    set((state) => ({
+      snapshots: [
+        ...state.snapshots,
+        {
+          datetime: input.datetime,
+          delta: input.delta,
+          snapshot: input.snapshot,
         },
       ],
     }));

@@ -15,7 +15,7 @@ const EventLogView = () => {
         <hr />
         {logState.logs.map((log, index) => (
           <div className="logLine" key={index}>
-            {`${log.datetime} - 
+            {`Event @ ${log.datetime.getHours()}:${log.datetime.getMinutes()}:${log.datetime.getSeconds()} - 
             Changed state field `}
             <span className="key">{log.state_key}</span>
             {` from `}
@@ -27,7 +27,7 @@ const EventLogView = () => {
       </div>
     );
   }
-  return <>No logs yet</>;
+  return <div className="eventLogView">No logs yet</div>;
 };
 
 export default EventLogView;
