@@ -10,13 +10,15 @@ const EventLogView = () => {
 
     return (
       <div className="eventLogView">
-        Log size: {Math.round((logSize * 100) / 1024) / 100} KiB (No limit set,
-        no logging treshold set.)
+        <strong>
+          Log size: {Math.round((logSize * 100) / 1024) / 100} KiB (No limit
+          set, no logging treshold set.)
+        </strong>
         <hr />
         {logState.logs.map((log, index) => (
           <div className="logLine" key={index}>
-            {`Event @ ${log.datetime.getHours()}:${log.datetime.getMinutes()}:${log.datetime.getSeconds()} - 
-            Changed state field `}
+            <span className="event">{`Event @ ${log.datetime.getHours()}:${log.datetime.getMinutes()}:${log.datetime.getSeconds()}`}</span>
+            {`Changed state field `}
             <span className="key">{log.state_key}</span>
             {` from `}
             <span className="prevVal">{log.prev_val.toString()}</span>

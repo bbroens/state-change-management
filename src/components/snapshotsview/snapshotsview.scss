@@ -4,23 +4,23 @@
   border-top: 1px dashed white;
   padding: 20px;
   display: flex;
-  flex: 5;
+  flex: 4;
   flex-direction: column;
   max-height: 50%;
   overflow: scroll;
 
   .snapshot {
     font-size: 0.9rem;
-    line-height: 1.3rem;
+    line-height: 1.5rem;
   }
 
   .snapshotInfo {
-    color: fuchsia;
+    color: rgb(166, 222, 255);
   }
 
   .deltaInfo {
     color: mediumspringgreen;
     border-bottom: 1px dashed #777;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 }

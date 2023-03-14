@@ -11,17 +11,25 @@
 
   .logLine {
     font-size: 0.9rem;
+    line-height: 1.7rem;
+
+    .event {
+      background-color: #fff;
+      color: black;
+      padding: 2px 5px;
+      margin-right: 10px;
+    }
 
     .key {
-      color: cyan;
+      color: rgb(0, 204, 255);
     }
 
     .prevVal {
-      color: orange;
+      color: rgb(208, 255, 0);
     }
 
     .newVal {
-      color: lime;
+      color: rgb(0, 255, 136);
     }
   }
 }

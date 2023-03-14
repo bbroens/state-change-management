@@ -90,7 +90,7 @@ const WebApp = () => {
 
   return (
     <div className="example-ui">
-      <h1>Example UI with app-level state</h1>
+      <h1>Example UI with state</h1>
       <form>
         <section className="textSection">
           Username:

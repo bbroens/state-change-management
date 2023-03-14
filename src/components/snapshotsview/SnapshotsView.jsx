@@ -11,8 +11,10 @@ const SnapshotsView = () => {
 
     return (
       <div className="snapshotView">
-        Snapshots total size: {Math.round((snapshotsSize * 100) / 1024) / 100}{" "}
-        KiB (No limit set, no logging treshold set.)
+        <strong>
+          Snapshots total size: {Math.round((snapshotsSize * 100) / 1024) / 100}{" "}
+          KiB (No limit set, no logging treshold set.)
+        </strong>
         <hr />
         {snapshotsState.snapshots.map((snapshot, index) => (
           <div className="snapshot" key={index}>
