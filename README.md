@@ -79,7 +79,7 @@ If state change comparison is a priority, dumping raw state objects is an easier
 
 The snapshot approach, especially with deltas, is a decent solution if you're looking to use state backup/restore - or even to copy state from one user to another. It's fairly straightforward, as long as you don't need to process and extract information from too many snapshots in between, for a timeline for example.
 
-### Solution: store changes in a separate log:
+### Solution: Store changes in a separate log:
 
 This is a great approach to track linear state changes, for example for a timeline of events or an undo/redo functionality. The state behaves just like any traditional app state, but the events that lead to state changes get tracked in a `separate log`. This way we can clearly track what happened at what point, and we can even cherry pick the changes: Want to undo the last 10 steps, but skip 6 and 7? Sure thing!
 
