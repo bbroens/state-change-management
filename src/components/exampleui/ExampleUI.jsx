@@ -8,6 +8,8 @@ const WebApp = () => {
   const appState = useAppStore((state) => state);
   const logState = useDebounce(useLogStore((state) => state));
 
+  // TODO Create new snapshot once every 10 logs
+
   // Update state for appropriate field
   const changeHandler = (e) => {
     const { name, value, checked } = e.target;
@@ -22,11 +24,11 @@ const WebApp = () => {
         break;
       case "preference_one":
         appState.setPrefOne(checked);
-        logStateEvent(name, appState.preference_one, value);
+        logStateEvent(name, appState.preference_one, checked);
         break;
       case "preference_two":
         appState.setPrefTwo(checked);
-        logStateEvent(name, appState.preference_two, value);
+        logStateEvent(name, appState.preference_two, checked);
         break;
       default:
         console.log(`Error: Field not handled: ${name}`);
@@ -35,8 +37,12 @@ const WebApp = () => {
 
   // Log state change event to separate change log
   const logStateEvent = async (field, prevValue, newValue) => {
+    var time = new Date();
+    const currentTime =
+      time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+
     await logState.addLog({
-      datetime: new Date(),
+      datetime: currentTime,
       state_key: field,
       prev_val: prevValue,
       new_val: newValue,
