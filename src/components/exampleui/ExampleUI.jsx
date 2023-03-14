@@ -7,7 +7,7 @@ import {
   useSnapshotsStore,
 } from "../../hooks/useStore";
 
-const WebApp = () => {
+const ExampleUI = () => {
   // Separate stores for app state and its change logging
   const appState = useAppStore((state) => state);
   const logState = useLogStore((state) => state);
@@ -134,4 +134,4 @@ const WebApp = () => {
   );
 };
 
-export default WebApp;
+export default ExampleUI;
