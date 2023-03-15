@@ -1,6 +1,6 @@
 # state-change-management
 
-Examples on how to keep track of app state changes
+Examples on how to keep track of how app state changes, using state graph & snapshots next to regular state management itself.
 
 > This repo is an educative example in progress.
 
@@ -14,7 +14,7 @@ In a regular app, the user enters their name in a field and we update the state 
 
 ## About this repository
 
-This repository is intended to illustrate a number of approaches to state change management, with some included examples in the source folder. In this readme, you can find an explanation of conceptual problems and possible solutions.
+This repository is intended to illustrate a number of approaches to state change management, with some included examples in the source folder. In this readme, you can find an explanation of conceptual problems and possible solutions. I chose to build state change logging and snapshots as separate functionality, just to have a more isolated example. You might opt to build these tools as Zustand or Redux middleware instead.
 
 The example webapp lives in src/components/exampleui/`ExampleUI.tsx`. The state stores live in src/hooks/`useStore.tsx`.
 
