@@ -16,7 +16,7 @@ In a regular app, the user enters their name in a field and we update the state 
 
 This repository is intended to illustrate a number of approaches to state change management, with some included examples in the source folder. In this readme, you can find an explanation of conceptual problems and possible solutions.
 
-> The example webapp lives in src/components/exampleui/`ExampleUI.tsx`. The state stores live in src/hooks/`useStore.tsx`.
+The example webapp lives in src/components/exampleui/`ExampleUI.tsx`. The state stores live in src/hooks/`useStore.tsx`.
 
 ![Preview: Example App](/public/screenshot.png?raw=true)
 
