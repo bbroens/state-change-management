@@ -2,6 +2,8 @@ import React from "react";
 import "./exampleui.scss";
 import useDebounce from "../../hooks/useDebounce";
 import * as stores from "../../hooks/useStore";
+
+// Import custom types for state stores & objects
 import * as types from "../../types/store.types";
 
 type ChangeType = {
