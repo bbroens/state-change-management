@@ -1,7 +1,8 @@
 import { create } from "zustand";
+import { AppStore, LogStore, SnapshotStore } from "../types/store.types";
 
-// Separate state store for example app state
-export const useAppStore = create((set) => ({
+// Separate App state store for example app state
+export const useAppStore = create<AppStore>((set) => ({
   // Initial app state
   username: "",
   score: 0,
@@ -16,7 +17,7 @@ export const useAppStore = create((set) => ({
 }));
 
 // Separate state store for app state event changes
-export const useLogStore = create((set) => ({
+export const useLogStore = create<LogStore>((set) => ({
   // Initial state change logs
   logs: [],
 
@@ -37,7 +38,7 @@ export const useLogStore = create((set) => ({
 }));
 
 // Separate state store for app state snapshots
-export const useSnapshotsStore = create((set) => ({
+export const useSnapshotsStore = create<SnapshotStore>((set) => ({
   // Initial state snapshots
   snapshots: [],
 
@@ -49,7 +50,7 @@ export const useSnapshotsStore = create((set) => ({
         {
           datetime: input.datetime,
           delta: input.delta,
-          snapshot: input.snapshot,
+          slice: input.slice,
         },
       ],
     }));

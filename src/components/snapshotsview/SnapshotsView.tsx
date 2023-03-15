@@ -1,9 +1,12 @@
 import React from "react";
 import "./snapshotsview.scss";
 import { useSnapshotsStore } from "../../hooks/useStore";
+import * as types from "../../types/store.types";
 
 const SnapshotsView = () => {
-  const snapshotsState = useSnapshotsStore((state) => state);
+  const snapshotsState = useSnapshotsStore<types.SnapshotStore>(
+    (state) => state
+  );
 
   if (snapshotsState.snapshots.length) {
     const snapshotsSize = new Blob([JSON.stringify(snapshotsState.snapshots)])
@@ -20,7 +23,7 @@ const SnapshotsView = () => {
           <div className="snapshot" key={index}>
             {`Snapshot @ ${snapshot.datetime.getHours()}:${snapshot.datetime.getMinutes()}:${snapshot.datetime.getSeconds()} `}
             <span className="snapshotInfo">
-              {JSON.stringify(snapshot.snapshot)}
+              {JSON.stringify(snapshot.slice)}
             </span>
             <div className="deltaInfo">
               {`Δ: ${JSON.stringify(snapshot.delta)}`}
@@ -30,7 +33,7 @@ const SnapshotsView = () => {
       </div>
     );
   }
-  return <div className="snapshotView">No snapshots yet</div>;
+  return <div className="snapshotView">No state snapshots yet</div>;
 };
 
 export default SnapshotsView;

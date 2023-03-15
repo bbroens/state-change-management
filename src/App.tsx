@@ -1,8 +1,8 @@
 import React from "react";
 import "./app.scss";
-import ExampleUI from "../src/components/exampleui/ExampleUI";
-import EventLogview from "../src/components/eventlogview/EventLogview";
-import SnapshotsView from "../src/components/snapshotsview/SnapshotsView";
+import ExampleUI from "./components/exampleui/ExampleUI";
+import EventLogView from "./components/eventlogview/EventLogView";
+import SnapshotsView from "./components/snapshotsview/SnapshotsView";
 
 function App() {
   // An example UI, with a zustand hooks state living on App level.
@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <ExampleUI />
-      <EventLogview />
+      <EventLogView />
       <SnapshotsView />
     </div>
   );

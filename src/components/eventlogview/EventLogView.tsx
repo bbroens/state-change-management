@@ -1,9 +1,10 @@
 import React from "react";
 import "./eventlogview.scss";
 import { useLogStore } from "../../hooks/useStore";
+import * as types from "../../types/store.types";
 
 const EventLogView = () => {
-  const logState = useLogStore((state) => state);
+  const logState = useLogStore<types.LogStore>((state) => state);
 
   if (logState.logs.length) {
     const logSize = new Blob([JSON.stringify(logState.logs)]).size;
@@ -29,7 +30,7 @@ const EventLogView = () => {
       </div>
     );
   }
-  return <div className="eventLogView">No logs yet</div>;
+  return <div className="eventLogView">No state changes logged yet</div>;
 };
 
 export default EventLogView;

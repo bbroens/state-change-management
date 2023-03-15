@@ -1,28 +1,34 @@
 import React from "react";
 import "./exampleui.scss";
 import useDebounce from "../../hooks/useDebounce";
-import {
-  useAppStore,
-  useLogStore,
-  useSnapshotsStore,
-} from "../../hooks/useStore";
+import * as stores from "../../hooks/useStore";
+import * as types from "../../types/store.types";
+
+type ChangeType = {
+  name: string;
+  value?: string | number;
+  checked?: boolean;
+};
 
 const ExampleUI = () => {
   // Separate stores for app state and its change logging
-  const appState = useAppStore((state) => state);
-  const logState = useLogStore((state) => state);
-  const snapshotsState = useSnapshotsStore((state) => state);
+  const appState = stores.useAppStore<types.AppStore>((state) => state);
+  const logState = stores.useLogStore<types.LogStore>((state) => state);
+  const snapshotsState = stores.useSnapshotsStore<types.SnapshotStore>(
+    (state) => state
+  );
 
   // Update app state for appropriate field and call state change handler
-  const changeHandler = (e) => {
-    const { name, value, checked } = e.target;
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, checked }: ChangeType = e.target;
+
     switch (name) {
       case "username":
         appState.setUsername(value);
         handleChangeLogging(name, appState.username, value);
         break;
       case "score":
-        appState.setScore(value);
+        appState.setScore(parseInt(value));
         handleChangeLogging(name, appState.score, value);
         break;
       case "preference_one":
@@ -34,19 +40,23 @@ const ExampleUI = () => {
         handleChangeLogging(name, appState.preference_two, checked);
         break;
       default:
-        console.log(`Error: Field not handled: ${name}`);
+        console.log(`Field not handled: ${name}`);
     }
   };
 
   // Set a new log on state change & check if snapshot is needed.
-  const handleChangeLogging = (field, prev_val, new_val) => {
+  const handleChangeLogging = (
+    field: string,
+    prev_val: string | number | boolean,
+    new_val: string | number | boolean
+  ) => {
     handleEventLogging(field, prev_val, new_val);
     handleSnapshots();
   };
 
   // Log state change event to separate change log
-  const handleEventLogging = async (field, prevValue, newValue) => {
-    await logState.addLog({
+  const handleEventLogging = (field: string, prevValue: any, newValue: any) => {
+    logState.addLog({
       datetime: new Date(),
       state_key: field,
       prev_val: prevValue,
@@ -58,12 +68,19 @@ const ExampleUI = () => {
     // Create a new snapshot once in every 10 logs
     if (logState.logs.length % 10 === 0 && logState.logs.length > 0) {
       // Calculate differences between app state and previous snapshot
-      const getDifference = (prevSnapshot, state) => {
+      const getDifference = (
+        prevSnapshot: types.Slice,
+        state: types.AppStore
+      ) => {
         let diff = Object.keys(state).reduce((diff, key) => {
-          if (prevSnapshot[key] === state[key]) return diff;
+          if (
+            prevSnapshot[key as keyof types.Slice] ===
+            state[key as keyof types.AppStore]
+          )
+            return diff;
           return {
             ...diff,
-            [key]: state[key],
+            [key]: state[key as keyof types.AppStore],
           };
         }, {});
 
@@ -71,11 +88,10 @@ const ExampleUI = () => {
       };
 
       // If a previous snapshot exists, compare delta between now and then
-      let deltaState = appState;
+      let deltaState: any = appState;
       if (snapshotsState.snapshots[snapshotsState.snapshots.length - 1]) {
-        const lastSnapshot =
-          snapshotsState.snapshots[snapshotsState.snapshots.length - 1]
-            .snapshot;
+        const lastSnapshot: types.Slice =
+          snapshotsState.snapshots[snapshotsState.snapshots.length - 1].slice;
         deltaState = getDifference(lastSnapshot, appState);
       }
 
@@ -83,7 +99,7 @@ const ExampleUI = () => {
       snapshotsState.addSnapshot({
         datetime: new Date(),
         delta: deltaState,
-        snapshot: appState,
+        slice: appState,
       });
     }
   };
@@ -114,7 +130,7 @@ const ExampleUI = () => {
             <input
               type="checkbox"
               name="preference_one"
-              checked={appState.preference_one && "checked"}
+              checked={appState.preference_one && true}
               onChange={changeHandler}
             />{" "}
             Preference one
@@ -123,7 +139,7 @@ const ExampleUI = () => {
             <input
               type="checkbox"
               name="preference_two"
-              checked={appState.preference_two && "checked"}
+              checked={appState.preference_two && true}
               onChange={changeHandler}
             />{" "}
             Preference two
