@@ -3,10 +3,26 @@ import "./snapshotsview.scss";
 import { useSnapshotsStore } from "../../hooks/useStore";
 import * as types from "../../types/store.types";
 
+type SnapShotProps = {
+  snapshot: types.Snapshot;
+};
+
 const SnapshotsView = () => {
   const snapshotsState = useSnapshotsStore<types.SnapshotStore>(
     (state) => state
   );
+
+  // Detailed snapshot line element for log
+  const SnapshotDetails = ({ snapshot }: SnapShotProps) => {
+    const timestamp = snapshot.datetime;
+    return (
+      <div className="snapshot">
+        {`Snapshot @ ${timestamp.getHours()}:${timestamp.getMinutes()}:${timestamp.getSeconds()} `}
+        <span className="snapshotInfo">{JSON.stringify(snapshot.slice)}</span>
+        <div className="delta">{`Δ: ${JSON.stringify(snapshot.delta)}`}</div>
+      </div>
+    );
+  };
 
   if (snapshotsState.snapshots.length) {
     const snapshotsSize = new Blob([JSON.stringify(snapshotsState.snapshots)])
@@ -14,21 +30,10 @@ const SnapshotsView = () => {
 
     return (
       <div className="snapshotView">
-        <strong>
-          {`Snapshots: ${Math.round((snapshotsSize * 100) / 1024) / 100} KiB`}
-        </strong>
+        {`Snapshots: ${Math.round((snapshotsSize * 100) / 1024) / 100} KiB`}
         <hr />
-
         {snapshotsState.snapshots.map((snapshot, index) => (
-          <div className="snapshot" key={index}>
-            {`Snapshot @ ${snapshot.datetime.getHours()}:${snapshot.datetime.getMinutes()}:${snapshot.datetime.getSeconds()} `}
-            <span className="snapshotInfo">
-              {JSON.stringify(snapshot.slice)}
-            </span>
-            <div className="deltaInfo">
-              {`Δ: ${JSON.stringify(snapshot.delta)}`}
-            </div>
-          </div>
+          <SnapshotDetails key={index} snapshot={snapshot} />
         ))}
       </div>
     );

@@ -11,12 +11,14 @@ type LogLineProps = {
 const EventLogView = () => {
   const logStore = useLogStore<types.LogStore>((state) => state);
 
-  // Detailed log line element
+  // Detailed log line element for log
   const LogLine = ({ log, index }: LogLineProps) => {
+    const timestamp = log.datetime;
+
     return (
       <div className="logLine">
         <span className="event">
-          {`Event @ ${log.datetime.getHours()}:${log.datetime.getMinutes()}:${log.datetime.getSeconds()}`}
+          {`Event @ ${timestamp.getHours()}:${timestamp.getMinutes()}:${timestamp.getSeconds()}`}
         </span>
         {`Changed state field `}
         <span className="key">{log.state_key}</span>
@@ -33,9 +35,7 @@ const EventLogView = () => {
 
     return (
       <div className="eventLogView">
-        <strong>
-          Log size: {Math.round((logSize * 100) / 1024) / 100} KiB
-        </strong>
+        Log size: {Math.round((logSize * 100) / 1024) / 100} KiB
         <hr />
         {logStore.logs.map((log, index) => (
           <LogLine key={index} log={log} index={index} />
