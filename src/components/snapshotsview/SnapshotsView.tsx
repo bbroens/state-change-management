@@ -33,7 +33,11 @@ const SnapshotsView = () => {
       </div>
     );
   }
-  return <div className="snapshotView">No state snapshots yet</div>;
+  return (
+    <div className="snapshotView">
+      Snapshots will be generated once in every 10 events.
+    </div>
+  );
 };
 
 export default SnapshotsView;

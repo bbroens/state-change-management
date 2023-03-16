@@ -30,7 +30,7 @@ const EventLogView = () => {
       </div>
     );
   }
-  return <div className="eventLogView">No state changes logged yet</div>;
+  return <div className="eventLogView">State changes will be logged here.</div>;
 };
 
 export default EventLogView;

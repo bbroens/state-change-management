@@ -3,6 +3,7 @@ import "./app.scss";
 import ExampleUI from "./components/exampleui/ExampleUI";
 import EventLogView from "./components/eventlogview/EventLogView";
 import SnapshotsView from "./components/snapshotsview/SnapshotsView";
+import { Timeline } from "./components/timeline/Timeline";
 
 function App() {
   // An example UI, with a zustand hooks state living on App level.
@@ -14,6 +15,7 @@ function App() {
       <ExampleUI />
       <EventLogView />
       <SnapshotsView />
+      <Timeline />
     </div>
   );
 }
