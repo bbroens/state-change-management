@@ -9,6 +9,7 @@ function App() {
   // An example UI, with a zustand hooks state living on App level.
   // In this entire app, two mechanisms track state changes.
   // Both mechanisms have their own view below the example UI.
+  // The live timeline is hooked into the change event logs.
 
   return (
     <div className="App">
