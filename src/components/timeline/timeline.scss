@@ -18,12 +18,13 @@ $blockSize: 12px;
     border: 1px solid rgb(88, 88, 88);
     margin: 3px;
 
-    .lightUpEvent {
+    .lightUpBlock {
       display: flex;
       min-width: $blockSize;
       height: $blockSize;
       background-color: #3eff95;
       box-shadow: 0px 0px 7px 5px #3eff954f;
+      z-index: 99;
 
       &:hover {
         background-color: white;

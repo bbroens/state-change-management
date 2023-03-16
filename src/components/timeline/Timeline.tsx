@@ -8,6 +8,12 @@ type TickEvent = {
   event: types.Log;
 };
 
+type LightUpBlockProps = {
+  field: string;
+  prev_val: number | string | boolean;
+  new_val: number | string | boolean;
+};
+
 export const Timeline = () => {
   const logState = useLogStore<types.LogStore>((state) => state);
 
@@ -38,17 +44,35 @@ export const Timeline = () => {
     }
   };
 
-  // For every tick, add a block. If state change occured at that tick, light up block.
+  const LightUpBlock = ({ field, prev_val, new_val }: LightUpBlockProps) => {
+    return (
+      <div
+        className="lightUpBlock"
+        title={`Changed ${field} from ${prev_val} into ${new_val}`}
+      ></div>
+    );
+  };
+
   return (
     <div className="timeline">
-      {[...Array(ticks)].map((block, index) => (
-        <div key={index} className="timelineBlock">
-          {tickEvents.length > 0 &&
-            tickEvents.filter((t) => t.tick === index).length > 0 && (
-              <div className="lightUpEvent"></div>
-            )}
-        </div>
-      ))}
+      {
+        // For every tick, add a block to timeline.
+        [...Array(ticks)].map((block, index) => (
+          <div key={index} className="timelineBlock">
+            {
+              // If state change occured at current tick, show lightup block.
+              tickEvents.length > 0 &&
+                tickEvents.filter((t) => t.tick === index).length > 0 && (
+                  <LightUpBlock
+                    field={tickEvents[tickEvents.length - 1].event.state_key}
+                    prev_val={tickEvents[tickEvents.length - 1].event.prev_val}
+                    new_val={tickEvents[tickEvents.length - 1].event.new_val}
+                  />
+                )
+            }
+          </div>
+        ))
+      }
     </div>
   );
 };
