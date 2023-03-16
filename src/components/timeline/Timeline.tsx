@@ -64,6 +64,7 @@ export const Timeline = () => {
               tickEvents.length > 0 &&
                 tickEvents.filter((t) => t.tick === index).length > 0 && (
                   <LightUpBlock
+                    key={index}
                     field={tickEvents[tickEvents.length - 1].event.state_key}
                     prev_val={tickEvents[tickEvents.length - 1].event.prev_val}
                     new_val={tickEvents[tickEvents.length - 1].event.new_val}

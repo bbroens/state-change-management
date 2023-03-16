@@ -91,9 +91,9 @@ const ExampleUI = () => {
 
       // If a previous snapshot exists, compare delta between now and then
       let deltaState: any = appState;
-      if (snapshotsState.snapshots[snapshotsState.snapshots.length - 1]) {
-        const lastSnapshot: types.Slice =
-          snapshotsState.snapshots[snapshotsState.snapshots.length - 1].slice;
+      const snapshots: types.Snapshot[] = snapshotsState.snapshots;
+      if (snapshots[snapshots.length - 1]) {
+        const lastSnapshot: types.Slice = snapshots[snapshots.length - 1].slice;
         deltaState = getDifference(lastSnapshot, appState);
       }
 

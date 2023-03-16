@@ -3,29 +3,42 @@ import "./eventlogview.scss";
 import { useLogStore } from "../../hooks/useStore";
 import * as types from "../../types/store.types";
 
-const EventLogView = () => {
-  const logState = useLogStore<types.LogStore>((state) => state);
+type LogLineProps = {
+  log: types.Log;
+  index: number;
+};
 
-  if (logState.logs.length) {
-    const logSize = new Blob([JSON.stringify(logState.logs)]).size;
+const EventLogView = () => {
+  const logStore = useLogStore<types.LogStore>((state) => state);
+
+  // Detailed log line element
+  const LogLine = ({ log, index }: LogLineProps) => {
+    return (
+      <div className="logLine">
+        <span className="event">
+          {`Event @ ${log.datetime.getHours()}:${log.datetime.getMinutes()}:${log.datetime.getSeconds()}`}
+        </span>
+        {`Changed state field `}
+        <span className="key">{log.state_key}</span>
+        {` from `}
+        <span className="prevVal">{log.prev_val.toString()}</span>
+        {` into `}
+        <span className="newVal">{log.new_val.toString()}</span>
+      </div>
+    );
+  };
+
+  if (logStore.logs.length) {
+    const logSize = new Blob([JSON.stringify(logStore.logs)]).size;
 
     return (
       <div className="eventLogView">
         <strong>
-          Log size: {Math.round((logSize * 100) / 1024) / 100} KiB (No limit
-          set, no logging treshold set.)
+          Log size: {Math.round((logSize * 100) / 1024) / 100} KiB
         </strong>
         <hr />
-        {logState.logs.map((log, index) => (
-          <div className="logLine" key={index}>
-            <span className="event">{`Event @ ${log.datetime.getHours()}:${log.datetime.getMinutes()}:${log.datetime.getSeconds()}`}</span>
-            {`Changed state field `}
-            <span className="key">{log.state_key}</span>
-            {` from `}
-            <span className="prevVal">{log.prev_val.toString()}</span>
-            {` into `}
-            <span className="newVal">{log.new_val.toString()}</span>
-          </div>
+        {logStore.logs.map((log, index) => (
+          <LogLine key={index} log={log} index={index} />
         ))}
       </div>
     );

@@ -15,10 +15,10 @@ const SnapshotsView = () => {
     return (
       <div className="snapshotView">
         <strong>
-          Snapshots total size: {Math.round((snapshotsSize * 100) / 1024) / 100}{" "}
-          KiB (No limit set, no logging treshold set.)
+          {`Snapshots: ${Math.round((snapshotsSize * 100) / 1024) / 100} KiB`}
         </strong>
         <hr />
+
         {snapshotsState.snapshots.map((snapshot, index) => (
           <div className="snapshot" key={index}>
             {`Snapshot @ ${snapshot.datetime.getHours()}:${snapshot.datetime.getMinutes()}:${snapshot.datetime.getSeconds()} `}
