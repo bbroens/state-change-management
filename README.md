@@ -1,16 +1,16 @@
 # state-change-management
 
-Examples on how to keep track of how app state changes, using state graph & snapshots next to regular state management itself.
+Technical examples on how to keep track of app state history, next to regular state management itself.
 
 > This repo is an educative example in progress.
 
 ## Challenge: Tracking state changes
 
-Having worked on real-time simulation software, one of the key challenges is how to keep track of state changes. State `change` management is a superset of state management itself, meaning that we want to keep track of `WHAT`, `WHO`, `WHEN` and `WHY` our app state changed - in addition to the state change itself.
+Having worked on real-time simulation software, one of the key challenges is how to keep track of state changes. State `change` management is a superset of state management itself, meaning that we want to keep track of `WHAT`, `WHO`, `WHEN` and `HOW` our app state changed - in addition to the state change itself.
 
 Perhaps we want to show a timeline of everything that happened with the state, or we want to restore the state back to a certain point in time.
 
-In a regular app, the user enters their name in a field and we update the state with a simple `onChange` event. But things get a little more interesting when we also want to keep track of everything that made the state change, including ways to get to the state as it was earlier.
+In a regular app, the user changes an input and we update the state with a simple `onChange` event. But things get a little more interesting when we also want to keep track of everything that made the state change, including ways to get to the state as it was earlier.
 
 ## About this repository
 
